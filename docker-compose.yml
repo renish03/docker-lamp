@@ -1,0 +1,45 @@
+version: "3.3"
+services:
+  apachephp:
+    build:
+      context: './web/'
+    networks:
+      - frontend
+      - backend
+    ports:
+        - "8080:80"
+    volumes:
+        - ./public_html/:/var/www/html/
+    depends_on:
+      - db
+      - redis
+    links:
+       - db
+       - redis
+    container_name: ${COMPOSE_APP_NAME}-php-v1
+  db:
+    image: mariadb:10.1
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+       - "8889:3306"
+    networks:
+      - backend 
+    volumes:
+      - ./mariadb:/var/lib/mysql
+    container_name: ${COMPOSE_APP_NAME}-mariadb-v1
+  redis:
+    image: redis:4.0
+    restart: always
+    ports:
+      - 16379:6379
+    networks:
+      - backend 
+    container_name: ${COMPOSE_APP_NAME}-redis-v1
+networks:
+  frontend:
+  backend:
