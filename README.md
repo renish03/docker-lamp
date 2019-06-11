@@ -9,7 +9,8 @@ you can clone from:https://github.com/renish03/docker-lamp/ or simply copy and p
 
 Folder Structure
 ===================
- /php-apache-mariadb-redis/
+  
+<pre><code>/php-apache-mariadb-redis/
 ├── mariadb
 │   
 ├── docker-compose.yml
@@ -19,3 +20,5 @@ Folder Structure
 │   └── demo.apache.conf
 └── public_html
     └── index.php
+</code></pre>
+
